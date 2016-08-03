@@ -4,6 +4,7 @@
   "description": "Generate Caramel stuff",
   "main": "index.js",
   "author": "Fanzoo Technology",
+  "homepage" : "https://github.com/jzdecourcy/generator-caramel",
   "license": "ISC",
   "keywords": [
     "yeoman-generator"
