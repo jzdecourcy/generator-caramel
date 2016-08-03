@@ -116,7 +116,6 @@ var CaramelGenerator = yeoman.generators.Base.extend({
 		
 		// Web projects
 		this.templatedata.webprojects = {};
-		//this.templatedata.webprojectNames = [ "Public" ]; //, "Admin" ];
 		
 		for (var i = 0; i < this.templatedata.webprojectNames.length; i++) {
 			this.templatedata.webprojects[this.templatedata.webprojectNames[i]] = {
@@ -128,22 +127,22 @@ var CaramelGenerator = yeoman.generators.Base.extend({
 		for (var i = 0; i < this.templatedata.webprojectNames.length; i++) {
 			var webproject = this.templatedata.webprojects[this.templatedata.webprojectNames[i]];
 			
-			this.templatedata.guid = webproject.guid;
-			this.templatedata.basewebnamespace = this.templatedata.basenamespace + ".Web.Mvc." + webproject.name;
-			//this.template(this.templatePath("Web/" + webproject.name + "/" + webproject.name + ".csproj"), "Web/" + webproject.name + "/" + webproject.name + ".csproj", this.templatedata);
-			//this.copy(this.templatePath("Web/" + webproject.name + "/packages.config"), "Web/" + webproject.name + "/packages.config");
-			
-			this.fs.copyTpl(
-				[ this.templatePath("Web/Public/**/*.*"), "!" + this.templatePath("Web/Public/**/*.csproj") ],
-				"Web/" + webproject.name,
-				this.templatedata
-			);
-			
-			this.fs.copyTpl(
-				this.templatePath("Web/Public/Public.csproj"),
-				"Web/" + webproject.name + "/" + webproject.name + ".csproj", 
-				this.templatedata
-			);					
+			if (webproject.Name.length > 0) {
+				this.templatedata.guid = webproject.guid;
+				this.templatedata.basewebnamespace = this.templatedata.basenamespace + ".Web.Mvc." + webproject.name;
+
+				this.fs.copyTpl(
+					[ this.templatePath("Web/WebProject/**/*.*"), "!" + this.templatePath("Web/WebProject/**/*.csproj") ],
+					"Web/" + webproject.name,
+					this.templatedata
+				);
+				
+				this.fs.copyTpl(
+					this.templatePath("Web/WebProject/WebProject.csproj"),
+					"Web/" + webproject.name + "/" + webproject.name + ".csproj", 
+					this.templatedata
+				);
+			}
 		}
 		
 		// Root files
