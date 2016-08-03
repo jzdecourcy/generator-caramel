@@ -127,7 +127,7 @@ var CaramelGenerator = yeoman.generators.Base.extend({
 		for (var i = 0; i < this.templatedata.webprojectNames.length; i++) {
 			var webproject = this.templatedata.webprojects[this.templatedata.webprojectNames[i]];
 			
-			if (webproject.Name.length > 0) {
+			if (webproject.name.length > 0) {
 				this.templatedata.guid = webproject.guid;
 				this.templatedata.basewebnamespace = this.templatedata.basenamespace + ".Web.Mvc." + webproject.name;
 
