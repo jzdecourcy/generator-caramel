@@ -1,5 +1,7 @@
 # generator-caramel
 
+Yeoman generator for Caramel based projects
+
 ## Usage
 
 * `yo caramel` shows a wizard for generating a new Caramel app
@@ -11,15 +13,25 @@
 
 The alphabetic list of available sub generators (_to create files after the project has been created_):
 
-* [caramel:Area](#Area)
+* [caramel:crud](#crud)
+* [caramel:area](#area)
 
-### Area
+### crud
 
-Creates MVC Area
+Creates types to facilitate CRUD operations invluding entities, commands, events, and command handlers.
 
 Example:
 ```
-yo caramel:Area Employee
+yo caramel:crud Employee
+```
+
+### area
+
+Creates MVC Area with basic CRUD operations with models, validators, metadata, mappings, and views.
+
+Example:
+```
+yo caramel:area Employee
 ```
 
 [Return to top](#top)
