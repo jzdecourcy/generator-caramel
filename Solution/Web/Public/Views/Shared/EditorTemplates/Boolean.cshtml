@@ -1,0 +1,41 @@
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+
+	var value = default(bool?);
+
+	if (this.ViewData.Model != null)
+	{
+		value = Convert.ToBoolean(this.ViewData.Model, System.Globalization.CultureInfo.InvariantCulture);
+	}
+
+	var items =
+		new[]
+		{
+			new SelectListItem()
+			{
+				Text = "Yes",
+				Value = true.ToString(),
+				Selected = (value != null) && value.Value
+			},
+			new SelectListItem ()
+			{
+				Text = "No",
+				Value = false.ToString(),
+				Selected = (value != null) && !value.Value
+			}
+		};
+}
+@(this.Html.Hidden("", value))
+@foreach (var item in items) {
+	<label class="radio-inline">
+		<input name="@(this.Html.NameForModel())Radio" type="radio" value="@(item.Value)" @(item.Selected ? "checked=\"checked\"" : "") @(this.ViewData.ModelMetadata.IsReadOnly ? "disabled=\"disabled\"" : "") />
+		@(item.Text)
+	</label>
+}
+<script type="text/javascript">
+	$(function () {
+		$("input[name='@(this.Html.NameForModel())Radio'").change(function () {
+			$("#@(this.Html.IdForModel())").val($(this).val());
+		});
+	});
+</script>

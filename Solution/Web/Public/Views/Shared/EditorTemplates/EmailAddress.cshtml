@@ -1,0 +1,13 @@
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+<div class="input-group">
+@if (this.ViewData.ModelMetadata.IsReadOnly) {
+	@(this.Html.TextBox("", this.ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control", disabled = "disabled" }))
+} else {
+	@(this.Html.TextBox("", this.ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control", placeholder = this.ViewData.ModelMetadata.Watermark }))
+}
+	<span class="input-group-addon">
+		<i class="glyphicon glyphicon-envelope"></i>
+	</span>
+</div>

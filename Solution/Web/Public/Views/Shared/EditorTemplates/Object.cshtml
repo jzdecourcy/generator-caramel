@@ -1,0 +1,3 @@
+@foreach (var property in this.ViewData.ModelMetadata.Properties.Where(p => p.ShowForEdit && !this.ViewData.TemplateInfo.Visited(p))) {
+	@(this.Html.Editor(property.PropertyName))
+}

@@ -1,0 +1,22 @@
+@model dynamic
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+
+	var key =
+		String.
+			Format(
+				"{0}List",
+				this.ViewData.ModelMetadata.PropertyName
+			);
+
+	if (!this.ViewData.ContainsKey(key))
+	{
+		throw new KeyNotFoundException(String.Format("The key '{0}' was not present in ViewData.", key));
+	}
+
+	var items =
+		this.
+			ViewData.
+				Eval(key) as IEnumerable<SelectListItem>;
+}
+@(this.Html.DropDownList("", items, new { @class = "form-control" }))

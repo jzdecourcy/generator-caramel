@@ -1,0 +1,5 @@
+@model string
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+@(this.Html.TextBox("", this.ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control phone-number", placeholder = this.ViewData.ModelMetadata.Watermark }))

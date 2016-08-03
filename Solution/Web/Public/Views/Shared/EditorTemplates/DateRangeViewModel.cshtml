@@ -1,0 +1,15 @@
+﻿@model OhmAdvisors.ConstructionObserver.Web.Mvc.Public.Models.DateRangeViewModel
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+@*<div class="input-daterange input-group" id="datepicker">
+	@(this.Html.TextBoxFor(m => m.Start, "{0:d}", new { @class = "form-control" }))
+	<span class="input-group-addon"> To </span>
+	@(this.Html.TextBoxFor(m => m.End, "{0:d}", new { @class = "form-control" }))
+</div>*@
+
+<div class="input-group" style="width: 300px;">
+	@(this.Html.TextBoxFor(m => m.Start, "{0:d}", new { @class = "form-control date-picker date" }))
+	<span class="input-group-addon">To</span>
+	@(this.Html.TextBoxFor(m => m.End, "{0:d}", new { @class = "form-control date-picker date" }))
+</div>

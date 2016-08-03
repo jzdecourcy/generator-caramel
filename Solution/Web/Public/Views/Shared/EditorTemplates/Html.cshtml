@@ -1,0 +1,17 @@
+﻿@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+@(this.Html.TextArea(""))
+<script>
+	//var CKEDITOR_BASEPATH = '/';
+
+	$(function () {
+		CKEDITOR.
+			replace(
+				"@(this.Html.IdForModel())", {
+					//uiColor: "#AADC6E",
+					customConfig: ""
+				}
+			);
+	});
+</script>

@@ -1,0 +1,9 @@
+﻿@model OhmAdvisors.ConstructionObserver.Web.Mvc.Public.Models.AddressViewModel
+@{
+	this.Layout = "~/Views/Shared/DisplayTemplates/_Layout.cshtml";
+}
+@(this.Model.PrimaryAddress)<br />
+@if (!String.IsNullOrWhiteSpace(this.Model.SecondaryAddress)) { 
+@(this.Model.SecondaryAddress)<br />
+}
+@(this.Model.City), @(this.Model.Region) @(this.Model.PostalCode)<br />

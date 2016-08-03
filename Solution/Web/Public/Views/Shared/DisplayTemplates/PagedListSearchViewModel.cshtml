@@ -1,0 +1,24 @@
+﻿@model OhmAdvisors.ConstructionObserver.Web.Mvc.Public.Models.PagedListSearchViewModel
+<div class="row">
+	<div class="col-xs-12">
+		<form class="form-horizontal form-search">
+			@(this.Html.EditorFor(m => m.Criteria))
+			<button type="submit" class="btn btn-primary">Search</button>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+@if (this.Model.Items != null) { 
+	@(this.Html.DisplayFor(m => m.Items, "Table"))
+}
+		<div class="center-block">
+			@if ((this.Model.Items != null) && (this.Model.Items.Count > 0)) {
+				@(this.Html.Partial("_Pager", (object)this.Model))
+			}
+		</div>
+	</div>
+@if ((this.Model.Items != null) && (this.Model.Items.Count == 0)) { 
+	<div class="col-md-3 col-md-offset-3"><div class="center-block">No results found</div></div>
+}
+</div>

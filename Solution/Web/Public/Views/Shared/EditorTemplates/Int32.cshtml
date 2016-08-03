@@ -1,0 +1,9 @@
+@model int?
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+@if (this.ViewData.ModelMetadata.IsReadOnly) {
+	<p class="form-control-static">@(this.ViewData.TemplateInfo.FormattedModelValue)</p>
+} else {
+	@(this.Html.TextBox("", this.ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control int", type = "number" }))
+}

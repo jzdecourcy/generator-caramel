@@ -1,0 +1,22 @@
+@if (this.ViewData.ModelMetadata.HideSurroundingHtml) {
+	@(this.RenderBody())
+} else {
+	<div class="form-group@(this.ViewData.ModelState.IsValidField(this.Html.NameForModel().ToString()) ? "" : " has-error")">
+		@if (@IsSectionDefined("Label")) {
+			@(this.RenderSection("Label", true))
+		} else {
+			<label class="col-md-2 col-lg-3 control-label">@(this.Html.DisplayNameForModel())</label>
+		}
+		<div class="col-md-10 col-lg-9">
+			@(this.RenderBody())
+		@if (!String.IsNullOrWhiteSpace(this.ViewData.ModelMetadata.Description)) {
+			<span id="helpBlock" class="help-block">@(this.ViewData.ModelMetadata.Description)</span>
+		}
+		@if (@IsSectionDefined("Validation")) {
+			@(this.RenderSection("Validation", true))
+		} else {
+			@(this.Html.ValidationMessageFor(m => m, null, new { @class = "help-block" }))
+		}
+		</div>
+	</div>	
+}

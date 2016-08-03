@@ -1,0 +1,11 @@
+﻿@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+<div class="input-group">
+	<span class="input-group-btn">
+		<span class="btn btn-primary btn-file">
+			Browse… <input id="@(this.Html.IdForModel())" name="@(this.Html.NameForModel())" type="file" />
+		</span>
+	</span>
+	<input id="@(this.Html.IdForModel())Name" type="text" class="form-control" readonly="readonly" />
+</div>

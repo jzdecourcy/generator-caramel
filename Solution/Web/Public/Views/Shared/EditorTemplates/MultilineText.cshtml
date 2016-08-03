@@ -1,0 +1,5 @@
+@model string
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+@(this.Html.TextArea("", this.ViewData.TemplateInfo.FormattedModelValue.ToString(), new { @class = "form-control" }))

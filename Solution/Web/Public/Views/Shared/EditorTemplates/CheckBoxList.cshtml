@@ -1,0 +1,47 @@
+@model dynamic
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+
+	var allowMultiple =
+		this.ViewData.ModelMetadata.AdditionalValues.ContainsKey("AllowMultiple") ?
+		Convert.ToBoolean(this.ViewData.ModelMetadata.AdditionalValues["AllowMultiple"]) :
+		false;
+
+	var key =
+		String.
+			Format(
+				"{0}List",
+				this.ViewData.ModelMetadata.PropertyName
+			);
+
+	if (!this.ViewData.ContainsKey(key))
+	{
+		throw new KeyNotFoundException(String.Format("The key '{0}' was not present in ViewData.", key));
+	}
+
+	var items =
+		this.
+			ViewData.
+				Eval(key) as IEnumerable<SelectListItem>;
+}
+@if (allowMultiple) {
+	for (var i = 0; i < items.Count(); i++) {
+		var item = items.ElementAt(i);
+		<div class="checkbox">
+			<label>
+				<input name="@(this.Html.NameForModel())[@i]" type="hidden" value="" />
+				<input name="@(this.Html.NameForModel())[@i]" type="checkbox" value="@(item.Value)" @(item.Selected ? "checked=checked" : "") />
+				@(item.Text)
+			</label>
+		</div>
+	}
+} else {
+	foreach (var item in items) {
+		<div class="checkbox">
+			<label>
+				<input name="@(this.Html.NameForModel())" id="@(this.ViewData.TemplateInfo.GetFullHtmlFieldId(""))" type="checkbox" value="@(item.Value)" @(item.Selected ? "checked=checked" : "") />
+				@(item.Text)
+			</label>
+		</div>
+	}
+}

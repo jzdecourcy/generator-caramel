@@ -1,0 +1,7 @@
+@model string
+@{
+	this.Layout = "~/Views/Shared/DisplayTemplates/_Layout.cshtml";
+}
+@if (!String.IsNullOrWhiteSpace(this.Model)) {
+	<a href="mailto:@(this.Model)">@(this.ViewData.TemplateInfo.FormattedModelValue)</a>
+}

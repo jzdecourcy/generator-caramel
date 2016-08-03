@@ -1,0 +1,4 @@
+﻿@(!String.IsNullOrEmpty(this.ViewData.ModelMetadata.ShortDisplayName) ? this.ViewData.ModelMetadata.ShortDisplayName : this.ViewData.ModelMetadata.GetDisplayName())
+@if (!String.IsNullOrEmpty(this.ViewData.ModelMetadata.Description)) {
+	<span data-toggle="tooltip" data-container="body" data-placement="right" data-original-title="@(this.ViewData.ModelMetadata.Description)"><i class="icon-info-sign"></i></span>
+}

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width" />
+		<title>OHM - Field Advisor - @(!String.IsNullOrWhiteSpace(this.ViewBag.Title) ? this.ViewBag.Title : this.ViewData.ModelMetadata.GetDisplayName())</title>
+		<link rel="stylesheet" href="~/Content/css/site.css" />
+		<link rel="icon" href="~/Content/favicon.ico" type="image/x-icon" />
+	@if (this.IsSectionDefined("Head")) {
+		@(this.RenderSection("Head"))
+	}
+		<script src="~/Content/js/app.js"></script>
+		<script src="~/Content/js/ckeditor/ckeditor.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-brand">
+					<img src="~/Content/Images/Logo.png" class="hidden-xs" />
+				</div>
+				<div class="navbar-brand">
+					<a class="navbar-link" href="@(this.Url.RouteUrl(Routes.Home))">Field Advisor</a>
+				</div>
+				<div class="navbar-header">
+				@if (this.User.Identity.IsAuthenticated) {
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				}	
+				</div>
+
+			@if (this.User.Identity.IsAuthenticated) {
+				<div class="navbar-collapse collapse">
+					@*<div class="col-md-3 hidden-xs" style="margin-top: 8px;">
+						<select id="QuickSelect" class="form-control" style="margin-bottom: 0px;">
+						</select>
+					</div>*@
+					<ul class="nav navbar-nav navbar-right">
+					@if (this.ViewData.Project() != null) {
+						<li class="dropdown active">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CURRENT PROJECT: @(this.ViewData.Project().DisplayName) <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="@(this.Url.RouteUrl(Routes.Project.Details, new { this.ViewData.Project().ID }))">Details</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.BidForm.Home, new { ProjectID = this.ViewData.Project().ID }))">Bid Form</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.Division.Home, new { ProjectID = this.ViewData.Project().ID }))">Divisions</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.Permit.Home, new { ProjectID = this.ViewData.Project().ID }))">Permits</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.Provision.Home, new { ProjectID = this.ViewData.Project().ID }))">Provisions</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.ExtraItem.Home, new { ProjectID = this.ViewData.Project().ID }))">Extra Items</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.ProjectPunchListItem.Home, new { ProjectID = this.ViewData.Project().ID }))">Punch List Items</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.ConstructionDailyReport.Home, new { ProjectID = this.ViewData.Project().ID }))">CDRs</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.ConstructionDailyReportCategory.Home, new { ProjectID = this.ViewData.Project().ID }))">CDR Categories</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.ChangeOrder.Home, new { ProjectID = this.ViewData.Project().ID }))">Change Orders</a></li>
+							</ul>
+						</li>
+						<li role="separator" class="divider"></li>
+					}
+						<li><a href="@(this.Url.RouteUrl(Routes.Project.Home))">Projects</a></li>
+					@if (this.User.IsInRole("Admin")) { 
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="@(this.Url.RouteUrl(Routes.Contractor.Home))">Contractors</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.Community.Home))">Communities</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.Location.Home))">Locations</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.UnitOfMeasure.Home))">Units of Measure</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.WeatherCondition.Home))">Weather Conditions</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.Material.Home))">Materials</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.Tag.Home))">CDR Tags</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.ExternalUser.Home))">Contract Employees</a></li>
+								<li><a href="@(this.Url.RouteUrl(Routes.InternalUser.Home))">Staff Users</a></li>
+							</ul>
+						</li>
+					}
+						<li><a href="@(this.Url.RouteUrl(Routes.Account.Details))">Profile</a></li>
+						<li><a href="@(this.Url.RouteUrl(Routes.Account.Logout))">Logout</a></li>
+					</ul>
+				</div>
+			}
+			</div>
+			@*<div class="container-fluid navbar-default">
+				@if (this.ViewData.Project() != null) {
+					<div class="navbar-collapse collapse navbar-default">
+						<ul class="nav navbar-nav">
+							<li><a href="@(this.Url.RouteUrl(Routes.Project.Details, new { this.ViewData.Project().ID }))">@(this.ViewData.Project().DisplayName)</a></li>
+							<li><a href="@(this.Url.RouteUrl(Routes.BidForm.Home, new { ProjectID = this.ViewData.Project().ID }))">Bid Form</a></li>
+							<li><a href="@(this.Url.RouteUrl(Routes.Division.Home, new { ProjectID = this.ViewData.Project().ID }))">Divisions</a></li>
+							<li><a href="@(this.Url.RouteUrl(Routes.Permit.Home, new { ProjectID = this.ViewData.Project().ID }))">Permits</a></li>
+							<li><a href="@(this.Url.RouteUrl(Routes.ConstructionDailyReportCategory.Home, new { ProjectID = this.ViewData.Project().ID }))">CDR Categories</a></li>
+							<li><a href="@(this.Url.RouteUrl(Routes.ConstructionDailyReport.Home, new { ProjectID = this.ViewData.Project().ID }))">CDRs</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@(this.ViewData.Project().DisplayName) <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="@(this.Url.RouteUrl(Routes.Project.Details, new { this.ViewData.Project().ID }))">Details</a></li>
+									<li><a href="@(this.Url.RouteUrl(Routes.BidForm.Home, new { ProjectID = this.ViewData.Project().ID }))">Bid Form</a></li>
+									<li><a href="@(this.Url.RouteUrl(Routes.Division.Home, new { ProjectID = this.ViewData.Project().ID }))">Divisions</a></li>
+									<li><a href="@(this.Url.RouteUrl(Routes.Permit.Home, new { ProjectID = this.ViewData.Project().ID }))">Permits</a></li>
+									<li><a href="@(this.Url.RouteUrl(Routes.ConstructionDailyReportCategory.Home, new { ProjectID = this.ViewData.Project().ID }))">CDR Categories</a></li>
+									<li><a href="@(this.Url.RouteUrl(Routes.ConstructionDailyReport.Home, new { ProjectID = this.ViewData.Project().ID }))">CDRs</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				}
+			</div>*@
+		</nav>
+		<div class="container-fluid">
+			<div class="row">
+			@if (this.User.Identity.IsAuthenticated) {
+				<div class="col-md-offset-3 col-lg-offset-2 col-md-6 col-lg-8 main">
+					<div class="page-header">
+					@if (this.IsSectionDefined("PageHeader")) {
+						@(this.RenderSection("PageHeader"))
+					} else {
+						<h2>@(this.ViewData.ModelMetadata.GetDisplayName())</h2>
+					}						
+					</div>
+					@*<h1>Test - @(ClaimsPrincipal.Current.Identity.AuthenticationType)</h1>*@
+					@(this.RenderBody())
+				</div>
+			} else {
+				<div class="col-sm-offset-3 col-lg-offset-4 col-sm-6 col-lg-4 main">
+					<div class="page-header">
+					@if (this.IsSectionDefined("PageHeader")) {
+						@(this.RenderSection("PageHeader"))
+					} else {
+						<h2>@(this.ViewData.ModelMetadata.GetDisplayName())</h2>
+					}						
+					</div>
+					@(this.RenderBody())
+				</div>
+			}
+			</div>
+		</div>
+		<footer class="footer hidden-xs">
+			<div class="container">
+				<div class="center-block">
+					<img src="@(this.Url.Content("~/Content/images/footer-logo.png"))" class="center-block hidden-xs" />
+				</div>
+			</div>
+		</footer>
+		@*<script>
+			$(function () {
+				$.ajax({
+					method: "GET",
+					url: "@(this.Url.RouteUrl(Routes.QuickSelect))"
+				}).
+				done(function (data) {
+					for (var i = 0; i < data.length; i++) {
+						$("#QuickSelect").append("<option value='" + data[i].Value  + "'>" + data[i].Text + "</option>");
+					}
+				});
+
+				$("#QuickSelect").change(function () {
+					$("#QuickSelect option:selected").each(function () {
+						window.location.href = $(this).val();
+					});
+				});
+			});
+		</script>*@
+	</body>
+</html>

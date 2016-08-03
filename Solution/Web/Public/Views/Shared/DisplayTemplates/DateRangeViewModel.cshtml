@@ -1,0 +1,9 @@
+﻿@model OhmAdvisors.ConstructionObserver.Web.Mvc.Public.Models.DateRangeViewModel
+@{
+	this.Layout = "~/Views/Shared/DisplayTemplates/_Layout.cshtml";
+}
+@if (this.Model != null) {
+	@(this.Html.DisplayFor(m => m.Start))
+	<span> To </span>
+	@(this.Html.DisplayFor(m => m.End))
+}

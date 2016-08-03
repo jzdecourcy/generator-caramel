@@ -1,0 +1,13 @@
+@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}
+<div class="input-group date"  style="width: 150px;">
+@if (this.ViewData.ModelMetadata.IsReadOnly) {
+	@(this.Html.TextBox("", this.ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control date-picker", disabled = "disabled" }))
+} else {
+	@(this.Html.TextBox("", this.ViewData.TemplateInfo.FormattedModelValue, new { @class = "form-control date-picker" }))
+}
+	<span class="input-group-addon">
+		<i class="glyphicon glyphicon-calendar"></i>
+	</span>
+</div>

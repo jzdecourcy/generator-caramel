@@ -1,0 +1,6 @@
+@model dynamic
+<div>
+@foreach (var property in this.ViewData.ModelMetadata.Properties.Where(p => p.ShowForDisplay && !this.ViewData.TemplateInfo.Visited(p))) {
+	@(this.Html.Display(property.PropertyName))
+}
+</div>

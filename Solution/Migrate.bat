@@ -1,0 +1,2 @@
+<%= basenamespace %>.Migrations\bin\Debug\migrate.exe /connection "server=.;database=<%= applicationName %>;trusted_connection=yes;" /db SqlServer2012 /target <%= basenamespace %>.Migrations\bin\Debug\<%= basenamespace %>.Migrations.dll
+PAUSE

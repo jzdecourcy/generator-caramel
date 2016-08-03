@@ -1,0 +1,7 @@
+<form method="post" class="form-horizontal">
+	@(this.Html.ValidationSummary(true))
+	@(this.Html.EditorForModel())
+	<div class="pull-right">
+		@(this.Html.Partial("_EditActions", (object)this.Model))
+	</div>
+</form>

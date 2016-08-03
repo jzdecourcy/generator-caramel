@@ -1,0 +1,6 @@
+<form class="form-horizontal">
+	@(this.Html.DisplayForModel())
+	<div class="pull-right">
+		@(this.Html.Partial("_DetailsActions", (object)this.Model))
+	</div>	
+</form>

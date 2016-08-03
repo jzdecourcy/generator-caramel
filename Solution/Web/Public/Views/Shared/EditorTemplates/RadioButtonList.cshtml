@@ -1,0 +1,22 @@
+﻿@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+	
+	var items =
+		this.
+			ViewData.
+				Eval(
+					String.
+						Format(
+							"{0}List",
+							this.Html.NameForModel()
+						)
+				) as IEnumerable<SelectListItem>;
+}
+@if (items != null) {
+	foreach (var item in items) {
+		<label class="radio-inline">
+			<input name="@(this.Html.NameForModel())" id="@(this.Html.IdForModel())" type="radio" value="@(item.Value)" @(item.Selected ? "checked=checked" : "") />
+			@(item.Text)
+		</label>
+	}
+}

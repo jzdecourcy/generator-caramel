@@ -1,0 +1,13 @@
+﻿@model OhmAdvisors.PersonnelDirectory.Web.Mvc.Public.Areas.<%= pluralname %>.Models.<%= classname %>SearchCriteriaViewModel
+<form class="form-horizontal form-search">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="input-group">
+				@(this.Html.EditorFor(m => m.Term))
+				<div class="input-group-btn">
+					<button class="btn btn-default" type="submit">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

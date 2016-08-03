@@ -1,0 +1,46 @@
+﻿@{
+	var defaultTemplateName = "Table.HeaderRow.Cell";
+	var templateName = defaultTemplateName;
+	var headerClassName = "";
+}
+<tr>
+@foreach (var property in this.ViewData.ModelMetadata.Properties.Where(p => p.ShowForDisplay && !this.ViewData.TemplateInfo.Visited(p))) {
+	{
+		templateName = defaultTemplateName;
+		var templateCandidateNames = new List<string>();
+
+		if (!String.IsNullOrWhiteSpace(property.TemplateHint))
+		{
+			templateCandidateNames.Add(String.Format("{0}.{1}", templateName, property.TemplateHint));
+		}
+
+		if (!String.IsNullOrWhiteSpace(property.DataTypeName))
+		{
+			templateCandidateNames.Add(String.Format("{0}.{1}", templateName, property.DataTypeName));
+		}
+
+		templateCandidateNames.Add(String.Format("{0}.{1}", templateName, (Nullable.GetUnderlyingType(property.ModelType) ?? property.ModelType).Name));
+
+		foreach (var templateCandidateName in templateCandidateNames)
+		{
+			var fullTemplateCandidateName = "DisplayTemplates" + "/" + templateCandidateName;
+			headerClassName = templateCandidateName;
+			
+			if (ViewEngines.Engines.FindPartialView(this.Html.ViewContext, fullTemplateCandidateName).View != null)
+			{
+				templateName = templateCandidateName;
+
+				break;
+			}
+		}
+	}	
+	<th class="table-header-@(property.PropertyName.ToLower()) table-header-@(headerClassName.Substring(defaultTemplateName.Length + 1, headerClassName.Length - defaultTemplateName.Length - 1).ToLower())">
+
+		@if (Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["metadataInfo:Enabled"])) {
+			<span data-toggle="popover" data-title="@(property.PropertyName) Metadata" data-html="true" data-content="@(this.Html.Encode(this.Html.DisplayFor(m => property, "ModelMetadata")))"><i class="icon-eye-open"></i></span>
+		}
+
+		@(this.Html.Display(property.PropertyName, templateName))
+	</th>
+}
+</tr>

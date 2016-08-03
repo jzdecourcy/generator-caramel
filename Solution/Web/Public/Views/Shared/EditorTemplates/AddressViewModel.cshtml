@@ -1,0 +1,9 @@
+@model OhmAdvisors.ConstructionObserver.Web.Mvc.Public.Models.AddressViewModel
+@*@{
+	this.Layout = "~/Views/Shared/EditorTemplates/_Layout.cshtml";
+}*@
+@(this.Html.EditorFor(m => m.PrimaryAddress))
+@(this.Html.EditorFor(m => m.SecondaryAddress))
+@(this.Html.EditorFor(m => m.City))
+@(this.Html.EditorFor(m => m.Region))
+@(this.Html.EditorFor(m => m.PostalCode))

@@ -1,0 +1,59 @@
+﻿@model System.Collections.IList
+@{
+	IEnumerable<ModelMetadata> properties = null;
+	var headerItem = (object)null;
+	
+	if (this.Model.Count == 0)
+	{
+		properties = new List<ModelMetadata>();
+
+		var baseType = this.Model.GetType();
+
+		while (baseType != null)
+		{
+			if ((baseType.IsGenericType) && (baseType.GetGenericTypeDefinition() == typeof(List<>)))
+			{
+				var itemType = baseType.GetGenericArguments().First();
+				headerItem = Activator.CreateInstance(itemType);
+
+				properties = 
+					ModelMetadata.
+						FromLambdaExpression(m => headerItem, this.ViewData).
+						Properties;
+
+				break;
+			}
+
+			baseType = baseType.BaseType;
+		}		
+	}
+	else
+	{
+		headerItem = this.Model[0];
+		
+		properties =
+			ModelMetadata.
+				FromLambdaExpression(m => m[0], this.ViewData).
+				Properties;
+	}	
+	
+	properties =
+		properties.
+			Where(p => p.ShowForDisplay && !this.ViewData.TemplateInfo.Visited(p)).
+			ToList();
+}
+@*<div class="table-responsive">*@
+	<table id="@(this.Html.Id(""))" class="table table-striped table-condensed">
+		<caption>@(this.ViewData.ModelMetadata.Description)</caption>
+		<thead>
+			@(this.Html.DisplayFor(m => headerItem, "Table.HeaderRow"))
+		</thead>
+		<tbody>
+			@if (this.Model != null) {
+				for (var i = 0; i < this.Model.Count; i++) {
+					@(this.Html.DisplayFor(m => this.Model[i], "Table.Row", new { Index = i }))
+				}
+			}
+		</tbody>
+	</table>
+@*</div>*@

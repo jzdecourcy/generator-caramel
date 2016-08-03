@@ -1,0 +1,66 @@
+@model OhmAdvisors.ConstructionObserver.Web.Mvc.Public.Models.PagedListViewModel
+@{
+	var count = 10;
+	var start = Math.Max(this.Model.PageIndex - (count / 2), 0);
+	var end = Math.Min(start + count, this.Model.PageCount);
+	
+	if ((this.Model.PageCount > count) && ((end - start) < count))
+	{
+		start = end - count;
+	}
+}
+<div>
+  <ul class="pagination">
+	@if (this.Model.PageIndex == 0) {
+		<li class="disabled">
+			<a href="javascript:void(0);"><<</a>
+		</li>	
+	} else {
+		<li>
+			<a href="@(this.Url.Action(this.Html.ViewContext.RouteData.Values["action"].ToString(), this.Html.ViewContext.RouteData.Values["controller"].ToString(), new { PageIndex = (this.Model.PageIndex - 1), this.Model.PageSize }))"><<</a>
+		</li>
+	}
+
+	@if (start > 1) {
+		<li>
+			<a href="@(this.Url.Action(this.Html.ViewContext.RouteData.Values["action"].ToString(), this.Html.ViewContext.RouteData.Values["controller"].ToString(), new { PageIndex = 0, this.Model.PageSize }))">1</a>
+		</li>
+		<li class="disabled">
+			<a href="javascript:void(0);">...</a>
+		</li>
+	}
+
+	@for (var i = start; i < end; i++) {
+		<li class="@((i == this.Model.PageIndex) ? "active" : "")">
+			<a href="@(this.Url.Action(this.Html.ViewContext.RouteData.Values["action"].ToString(), this.Html.ViewContext.RouteData.Values["controller"].ToString(), new { PageIndex = i, this.Model.PageSize }))">@(i + 1)</a>
+		</li>
+	}
+
+	@if (end < this.Model.PageCount) {
+		<li class="disabled">
+			<a href="javascript:void(0);">...</a>
+		</li>
+		<li>
+			<a href="@(this.Url.Action(this.Html.ViewContext.RouteData.Values["action"].ToString(), this.Html.ViewContext.RouteData.Values["controller"].ToString(), new { PageIndex = (this.Model.PageCount - 1), this.Model.PageSize }))">@(this.Model.PageCount)</a>
+		</li>
+	}
+
+	@if ((this.Model.PageCount == 0) || (this.Model.PageIndex + 1) == this.Model.PageCount) {
+		<li class="disabled">
+			<a href="javascript:void(0);">>></a>
+		</li>	
+	} else {
+		<li>
+			<a href="@(this.Url.Action(this.Html.ViewContext.RouteData.Values["action"].ToString(), this.Html.ViewContext.RouteData.Values["controller"].ToString(), new { PageIndex = (this.Model.PageIndex + 1), this.Model.PageSize }))">>></a>
+		</li>
+	}
+  </ul>
+</div>
+<script type="text/javascript">
+	$(function () {
+		$("ul.pagination li a").
+			each(function () {
+				$(this).attr("href", $(this).attr("href") + "&" + $("form").serialize());
+			});
+	});
+</script>
