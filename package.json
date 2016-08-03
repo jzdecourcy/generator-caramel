@@ -25,6 +25,8 @@
     "yosay": "^1.0.0"
   },
   "files": [
+	"configuration.js",
+	"script-base.js",
     "app",
 	"area",
 	"crud",
