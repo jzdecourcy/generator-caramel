@@ -4,8 +4,12 @@
   "description": "Generate Caramel stuff",
   "main": "index.js",
   "author": "Fanzoo Technology",
-  "homepage" : "https://github.com/jzdecourcy/generator-caramel",
+  "homepage": "https://github.com/jzdecourcy/generator-caramel",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jzdecourcy/generator-caramel"
+  },
   "keywords": [
     "yeoman-generator"
   ],
@@ -17,12 +21,10 @@
     "pluralize": "^1.2.1",
     "uuid": "^2.0.1",
     "vs_projectname": "^1.0.0",
-    "yeoman-generator": "^0.22.2",
+    "yeoman-generator": "^0.22.6",
     "yosay": "^1.0.0"
   },
   "files": [
-    "app",
-    "Command",
-    "CommandHandler"
+    "app"
   ]
 }
