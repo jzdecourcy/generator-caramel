@@ -9,11 +9,6 @@ var NamedGenerator = module.exports = function NamedGenerator() {
 
 util.inherits(NamedGenerator, ScriptBase);
 
-//his.log("Hellllllloooo!");
-
-// Entity
-//t//his.generateTemplateFile("mutableentity.cs", this.name + ".cs", 
-
 // Commands
 // Events
 // Command Handlers

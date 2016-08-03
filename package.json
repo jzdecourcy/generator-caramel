@@ -25,6 +25,9 @@
     "yosay": "^1.0.0"
   },
   "files": [
-    "app"
+    "app",
+	"area",
+	"crud",
+	"templates"
   ]
 }
